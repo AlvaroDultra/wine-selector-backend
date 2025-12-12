@@ -13,84 +13,96 @@ public enum IntimacyLevel {
     PRIMEIRO_ENCONTRO(
             "Primeiro Encontro",
             "Situação de baixa intimidade que exige máxima segurança na escolha. " +
-            "Prioriza vinhos versáteis e amplamente agradáveis.",
-            1 // Nível de risco: mínimo
+                    "Prioriza vinhos versáteis e amplamente agradáveis.",
+            1
     ),
 
     CONHECIDO(
             "Conhecido",
             "Relação superficial que ainda requer escolhas conservadoras e seguras. " +
-            "Alguma margem para escolhas mais interessantes.",
-            2 // Nível de risco: baixo
+                    "Alguma margem para escolhas mais interessantes.",
+            2
     ),
 
-    COLEGA_TRABALHO(
-            "Colega de Trabalho",
-            "Relação profissional que permite escolhas equilibradas, mas mantém formalidade. " +
-            "Boa margem para vinhos clássicos e elegantes.",
-            3 // Nível de risco: moderado
+    AMIGO_DISTANTE(
+            "Amigo Distante",
+            "Amizade estabelecida mas sem grande proximidade no dia a dia. " +
+                    "Permite escolhas equilibradas com moderada segurança.",
+            3
+    ),
+
+    AMIGO(
+            "Amigo",
+            "Amizade consolidada com conforto moderado para escolhas variadas. " +
+                    "Boa margem para vinhos interessantes.",
+            4
     ),
 
     AMIGO_PROXIMO(
             "Amigo Próximo",
             "Alta intimidade que permite escolhas mais ousadas e personalizadas. " +
-            "Conforto para experimentar e arriscar.",
-            4 // Nível de risco: alto
+                    "Conforto para experimentar e arriscar.",
+            5
+    ),
+
+    AMIGO_REVER(
+            "Amigo que Irá Rever",
+            "Reencontro com amigo de longa data. Nostalgia e história permitem liberdade. " +
+                    "Momento especial que aceita escolhas marcantes.",
+            5
+    ),
+
+    COLEGA_TRABALHO(
+            "Colega de Trabalho",
+            "Relação profissional que permite escolhas equilibradas, mas mantém formalidade. " +
+                    "Boa margem para vinhos clássicos e elegantes.",
+            3
+    ),
+
+    CHEFE_SUPERIOR(
+            "Chefe/Superior",
+            "Contexto hierárquico que exige máxima formalidade e segurança. " +
+                    "Escolhas devem ser clássicas e irrepreensíveis.",
+            2
+    ),
+
+    CLIENTE_FORNECEDOR(
+            "Cliente/Fornecedor",
+            "Relação comercial que requer elegância, profissionalismo e segurança. " +
+                    "Vinhos devem transmitir bom gosto sem ousadia.",
+            2
     ),
 
     INTIMO_FAMILIAR(
             "Íntimo/Familiar",
             "Máxima intimidade onde há total liberdade de escolha. " +
-            "Qualquer perfil é válido, priorizando apenas a harmonização.",
-            5 // Nível de risco: máximo
+                    "Qualquer perfil é válido, priorizando apenas a harmonização.",
+            6
     );
 
-    // Atributos do enum
     private final String displayName;
     private final String description;
-    private final int riskTolerance; // 1 (baixo) a 5 (alto)
+    private final int riskTolerance;
 
-    /**
-     * Construtor do enum.
-     *
-     * @param displayName Nome a ser exibido para o usuário
-     * @param description Descrição do nível de intimidade
-     * @param riskTolerance Nível de tolerância a risco (1-5)
-     */
     IntimacyLevel(String displayName, String description, int riskTolerance) {
         this.displayName = displayName;
         this.description = description;
         this.riskTolerance = riskTolerance;
     }
 
-    @JsonValue  // ← ADICIONAR
+    @JsonValue
     public String getName() {
         return this.name();
     }
 
-    /**
-     * Verifica se este nível permite escolhas ousadas.
-     *
-     * @return true se o nível de risco for alto (≥ 4)
-     */
     public boolean allowsBoldChoices() {
-        return riskTolerance >= 4;
+        return riskTolerance >= 5;
     }
 
-    /**
-     * Verifica se este nível exige máxima segurança.
-     *
-     * @return true se o nível de risco for mínimo (≤ 2)
-     */
     public boolean requiresMaxSafety() {
         return riskTolerance <= 2;
     }
 
-    /**
-     * Retorna uma representação textual amigável do nível.
-     *
-     * @return Nome de exibição do nível de intimidade
-     */
     @Override
     public String toString() {
         return displayName;

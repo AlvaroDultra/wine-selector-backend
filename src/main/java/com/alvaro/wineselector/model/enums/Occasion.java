@@ -15,6 +15,12 @@ public enum Occasion {
             "Ambiente profissional e formal, exigindo escolhas seguras e elegantes."
     ),
 
+    ALMOCO_NEGOCIOS(
+            "Almoço de Negócios",
+            "Contexto profissional mais leve que reunião formal, mas ainda corporativo. " +
+                    "Permite vinhos mais frescos e menos intensos."
+    ),
+
     JANTAR_ROMANTICO(
             "Jantar Romântico",
             "Momento especial a dois, onde elegância e sofisticação são valorizadas."
@@ -25,9 +31,10 @@ public enum Occasion {
             "Situação que exige escolhas versáteis e que agradem diferentes paladares."
     ),
 
-    ENTRE_AMIGOS(
-            "Entre Amigos",
-            "Ambiente descontraído e informal, permitindo escolhas mais ousadas e variadas."
+    ANIVERSARIO(
+            "Aniversário",
+            "Celebração pessoal e festiva, exige vinhos especiais e memoráveis. " +
+                    "Momento para escolhas que marquem a ocasião."
     ),
 
     CELEBRACAO(
@@ -35,9 +42,20 @@ public enum Occasion {
             "Momento festivo e alegre, ideal para vinhos que transmitem celebração."
     ),
 
+    ENTRE_AMIGOS(
+            "Entre Amigos",
+            "Ambiente descontraído e informal, permitindo escolhas mais ousadas e variadas."
+    ),
+
     JANTAR_FAMILIA(
             "Jantar em Família",
             "Reunião familiar que pede vinhos agradáveis e que agradem a todos."
+    ),
+
+    BRUNCH_HAPPY_HOUR(
+            "Brunch/Happy Hour",
+            "Momento descontraído durante o dia ou início da noite. " +
+                    "Favorece vinhos leves, frescos e fáceis de beber."
     ),
 
     CASUAL(
@@ -45,31 +63,19 @@ public enum Occasion {
             "Momento informal e despreocupado, sem exigências específicas."
     );
 
-    // Atributos do enum
     private final String displayName;
     private final String description;
 
-    /**
-     * Construtor do enum.
-     *
-     * @param displayName Nome a ser exibido para o usuário
-     * @param description Descrição do contexto da ocasião
-     */
     Occasion(String displayName, String description) {
         this.displayName = displayName;
         this.description = description;
     }
 
-    @JsonValue  // ← ADICIONAR
+    @JsonValue
     public String getName() {
         return this.name();
     }
 
-    /**
-     * Retorna uma representação textual amigável da ocasião.
-     *
-     * @return Nome de exibição da ocasião
-     */
     @Override
     public String toString() {
         return displayName;
