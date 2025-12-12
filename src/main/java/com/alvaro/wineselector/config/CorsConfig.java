@@ -18,47 +18,54 @@ public class CorsConfig {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        
-        // Permite credenciais (cookies, autenticação)
+
         config.setAllowCredentials(true);
-        
-        // Origens permitidas (ajustar para produção)
+
+        // Origens permitidas (localhost + produção)
         config.setAllowedOriginPatterns(List.of(
-            "http://localhost:3000",    // React dev
-            "http://localhost:5173",    // Vite dev
-            "http://localhost:4200"     // Angular dev (futuro)
+                "http://localhost:3000",
+                "http://localhost:5173",
+                "http://localhost:4200",
+                "https://wine-selector-front.vercel.app",
+                "https://wine-selector-front-*.vercel.app",  // Preview deploys
+                "https://*.vercel.app"  // Qualquer deploy Vercel
         ));
-        
+
         // Headers permitidos
         config.setAllowedHeaders(Arrays.asList(
-            "Origin",
-            "Content-Type",
-            "Accept",
-            "Authorization",
-            "X-Requested-With"
+                "Origin",
+                "Content-Type",
+                "Accept",
+                "Authorization",
+                "X-Requested-With",
+                "Access-Control-Request-Method",
+                "Access-Control-Request-Headers"
         ));
-        
+
         // Métodos HTTP permitidos
         config.setAllowedMethods(Arrays.asList(
-            "GET",
-            "POST",
-            "PUT",
-            "DELETE",
-            "OPTIONS"
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTIONS",
+                "PATCH"
         ));
-        
+
         // Headers expostos na resposta
         config.setExposedHeaders(Arrays.asList(
-            "Content-Type",
-            "Authorization"
+                "Content-Type",
+                "Authorization",
+                "Access-Control-Allow-Origin",
+                "Access-Control-Allow-Credentials"
         ));
-        
+
         // Tempo de cache da configuração CORS (1 hora)
         config.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/**", config);
-        
+        source.registerCorsConfiguration("/**", config);  // Aplicar a todas as rotas
+
         return new CorsFilter(source);
     }
 }
